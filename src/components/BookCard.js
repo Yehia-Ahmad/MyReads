@@ -1,6 +1,5 @@
 function BookCard({ book, changeBookState }) {
   const { imageLinks, title, authors } = book;
-
   return (
     <div className="book">
       <div className="book-top">
@@ -22,7 +21,7 @@ function BookCard({ book, changeBookState }) {
             value={book.shelf || "none"}
           >
             <option value="none" disabled>
-              Move to...
+              Move to... {book.shelf}
             </option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>

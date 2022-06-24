@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import { getAll, update } from "../BooksAPI";
 import { Link } from "react-router-dom";
 import BookShelf from "../components/BookShelf";
 
-function Home() {
-  const shelfs = [
+function Home({ books, changeBookState }) {
+  const shelvs = [
     {
       title: "Currently Reading",
       shelf: "currentlyReading",
@@ -19,31 +17,6 @@ function Home() {
     },
   ];
 
-  const [books, setBooks] = useState([]);
-
-  useEffect(() => {
-    getAll().then((books) => {
-      setBooks(books);
-    });
-  }, []);
-
-  const changeBookState = (book, shelf) => {
-    update(book, shelf).then(() => {
-      // edit old book
-      const newBooks = [...books];
-      const index = newBooks.findIndex((b) => b.id === book.id);
-      if (index > -1) {
-        if (shelf === "none") {
-          // remove old book
-          newBooks.splice(index, 1);
-        } else {
-          newBooks[index].shelf = shelf;
-        }
-        setBooks(newBooks);
-      }
-    });
-  };
-
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -51,7 +24,7 @@ function Home() {
       </div>
       <div className="list-books-content">
         <div>
-          {shelfs.map((shelf, index) => (
+          {shelvs.map((shelf, index) => (
             <BookShelf
               key={index}
               title={shelf.title}

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
-import { search, update } from "../BooksAPI";
+import { search } from "../BooksAPI";
 import { Link } from "react-router-dom";
 
-function Search() {
+function Search({ shelvsBooks, changeBookState }) {
   const [books, setBooks] = useState([]);
   const [searchText, setSearchText] = useState("");
 
@@ -18,14 +18,18 @@ function Search() {
         setBooks([]);
       } else if (books.error) {
       } else {
-        setBooks(books);
+        setBooks(
+          books.map((book) => {
+            if (shelvsBooks[book.id]) {
+              book.shelf = shelvsBooks[book.id].shelf;
+            }
+            return book;
+          })
+        );
       }
     });
-  }, [searchText]);
+  }, [searchText, shelvsBooks]);
 
-  const changeBookState = (book, shelf) => {
-    update(book, shelf);
-  };
   return (
     <div className="search-books">
       <div className="search-books-bar">
