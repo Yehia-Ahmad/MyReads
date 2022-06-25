@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import BookCard from "../components/BookCard";
 import { search } from "../BooksAPI";
 import { Link } from "react-router-dom";
@@ -14,9 +15,8 @@ function Search({ shelvsBooks, changeBookState }) {
     }
 
     search(searchText, 20).then((books) => {
-      if (!books) {
+      if (!books || books.error) {
         setBooks([]);
-      } else if (books.error) {
       } else {
         setBooks(
           books.map((book) => {
@@ -47,15 +47,19 @@ function Search({ shelvsBooks, changeBookState }) {
       </div>
       <div className="search-books-results">
         <ol className="books-grid">
-          {books.map((book, index) => (
-            <li key={index}>
-              <BookCard changeBookState={changeBookState} book={book} />
-            </li>
-          ))}
+          {books &&
+            books.map((book, index) => (
+              <li key={index}>
+                <BookCard changeBookState={changeBookState} book={book} />
+              </li>
+            ))}
         </ol>
       </div>
     </div>
   );
 }
-
+Search.propTypes = {
+  shelvsBooks: PropTypes.object.isRequired,
+  changeBookState: PropTypes.func.isRequired,
+};
 export default Search;

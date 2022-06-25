@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 function BookCard({ book, changeBookState }) {
   const { imageLinks, title, authors } = book;
   return (
@@ -35,5 +37,8 @@ function BookCard({ book, changeBookState }) {
     </div>
   );
 }
-
+BookCard.propTypes = {
+  book: PropTypes.object.isRequired,
+  changeBookState: PropTypes.func.isRequired,
+};
 export default BookCard;

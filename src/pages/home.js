@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import BookShelf from "../components/BookShelf";
 
 function Home({ books, changeBookState }) {
@@ -41,5 +42,10 @@ function Home({ books, changeBookState }) {
     </div>
   );
 }
+
+Home.propTypes = {
+  books: PropTypes.object.isRequired,
+  changeBookState: PropTypes.func.isRequired,
+};
 
 export default Home;
