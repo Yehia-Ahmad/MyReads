@@ -20,7 +20,7 @@ function BookCard({ book, changeBookState }) {
             onChange={(e) => {
               changeBookState(book, e.target.value);
             }}
-            value={book.shelf || "none"}
+            value={book.shelf}
           >
             <option value="none" disabled>
               Move to... {book.shelf}

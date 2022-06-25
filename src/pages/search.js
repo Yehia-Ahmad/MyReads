@@ -22,6 +22,8 @@ function Search({ shelvsBooks, changeBookState }) {
           books.map((book) => {
             if (shelvsBooks[book.id]) {
               book.shelf = shelvsBooks[book.id].shelf;
+            } else {
+              book.shelf = "none";
             }
             return book;
           })
